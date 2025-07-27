@@ -11,47 +11,11 @@
 
 	const pieData = $state({
 		labels:
-			data?.analytics?.pieChart?.map(
+			data?.analytics?.pieData?.map(
 				(item: { value: number; category: string }) => `${item.value}% ${item.category}`
 			) || [],
-		data: data?.analytics?.pieChart?.map((item: { value: number }) => item.value) || []
+		data: data?.analytics?.pieData?.map((item: { value: number }) => item.value) || []
 	});
-
-	const mockMostUsedResources = [
-		{
-			title: 'How to lead new teams',
-			link: '',
-			trend: null
-		},
-		{
-			title: 'How to be more direct',
-			link: '',
-			trend: null
-		},
-		{
-			title: 'The secret to giving great feedback',
-			link: '',
-			trend: 'down'
-		}
-	];
-
-	const mockMostUsedResources2 = [
-		{
-			title: 'Conflict Resolution',
-			link: '',
-			trend: null
-		},
-		{
-			title: 'How to stay motivated',
-			link: '',
-			trend: 'up'
-		},
-		{
-			title: 'Work life balance',
-			link: '',
-			trend: 'down'
-		}
-	];
 
 	const columns: ColumnT[] = [
 		{
@@ -231,8 +195,8 @@
 			<h3 class="ml-10 text-xs text-gray-400">Resources by category</h3>
 
 			<PieChart
-				chartLabels={['10% Category', '20% Category', '70% Category']}
-				chartData={[10, 20, 70]}
+				chartLabels={pieData.labels}
+				chartData={pieData.data}
 				dataLabel="Pie chart"
 			/>
 		</Card>
@@ -248,7 +212,7 @@
 		<Card padding="md">
 			<h3 class="mb-3 text-xs text-gray-400">Most Used Resources</h3>
 
-			{#each mockMostUsedResources as resource}
+			{#each data?.analytics?.mostUsedResources || [] as resource}
 				<ContentLink link={resource.link} trend={resource.trend as ContentLinkTrendT}>
 					{resource.title}
 				</ContentLink>
@@ -258,7 +222,7 @@
 		<Card padding="md">
 			<h3 class="mb-3 text-xs text-gray-400">Most Used Resources</h3>
 
-			{#each mockMostUsedResources2 as resource}
+			{#each data?.analytics?.mostUsedResources2 || [] as resource}
 				<ContentLink link={resource.link} trend={resource.trend as ContentLinkTrendT}>
 					{resource.title}
 				</ContentLink>
@@ -277,7 +241,7 @@
 					<label for="provider" class="sr-only">Provider</label>
 	
 					<select placeholder="Provider" class="w-full md:w-[200px] rounded border border-gray-300 h-[40px] px-3" name="provider" id="provider">
-						<option value="">--Select--</option>
+						<option value="">Provider</option>
 					</select>
 				</div>
 	
