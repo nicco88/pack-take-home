@@ -2,6 +2,7 @@
 	import '../../app.css';
 	import { SubNavLink, Card, Button } from '$lib/index';
 	import { page } from '$app/state';
+	import { ChartNoAxesColumn} from '@lucide/svelte'
 
 	let { children } = $props();
 
@@ -16,14 +17,16 @@
 	].map((item) => ({ ...item, link: `${base}${item.link}` }));
 </script>
 
-<Card padding="md" classList="w-full sm:w-[400px] md:w-[600px] lg:w-[900px]">
+<Card padding="md" classList="w-full md:w-[700px] lg:w-[900px]">
   <h1 class="text-2xl font-bold sr-only">Resources</h1>
 
 	<div class="flex flex-wrap lg:flex-nowrap lg:h-10 items-center gap-3">
 		<nav class="h-full w-full">
 			<ul class="flex flex-wrap sm:flex-nowrap h-full justify-center sm:justify-start items-center gap-x-2 border-b border-b-gray-300 text-sm">
 				<li class="h-full">
-					<SubNavLink link={base} active={page.url.pathname === base}>Icon</SubNavLink>
+					<SubNavLink link={base} active={page.url.pathname === base} ariaLabel="Analytics">
+						<ChartNoAxesColumn />
+					</SubNavLink>
 				</li>
 
 				{#each navigation as item}
@@ -40,13 +43,17 @@
 			</ul>
 		</nav>
 
-		<input
-			class="rounded border border-gray-300 px-3 py-2 w-full sm:w-auto"
-			type="search"
-			name="search"
-			placeholder="Search"
-			id="search"
-		/>
+		<form class="w-full sm:w-auto">
+			<label for="search" class="sr-only">Search</label>
+
+			<input
+				class="rounded border border-gray-300 px-3 py-2 w-full sm:w-auto"
+				type="search"
+				name="search"
+				placeholder="Search"
+				id="search"
+			/>
+		</form>
 
 		<Button type="button" classList="w-full sm:w-auto">Upload</Button>
 	</div>

@@ -7,6 +7,16 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@bonosoft/sveltekit-progress':
+        specifier: ^0.0.1
+        version: 0.0.1(svelte@5.36.17)
+      '@lucide/svelte':
+        specifier: ^0.526.0
+        version: 0.526.0(svelte@5.36.17)
+      chart.js:
+        specifier: ^4.5.0
+        version: 4.5.0
     devDependencies:
       '@chromatic-com/storybook':
         specifier: ^4.0.1
@@ -128,6 +138,11 @@ packages:
   '@babel/runtime@7.28.2':
     resolution: {integrity: sha512-KHp2IflsnGywDjBWDkR9iEqiWSpc8GIi0lgTT3mOElT0PP1tG26P4tmFI2YvAdzgq9RGyoHZQEIEdZy6Ec5xCA==}
     engines: {node: '>=6.9.0'}
+
+  '@bonosoft/sveltekit-progress@0.0.1':
+    resolution: {integrity: sha512-in63+T19MWhPX8/krHZRtBbP/SWFeh47EqaGDPZE+xo5OTR94o9fGY/7Xbi/UisBwzrwitx8VD3bE4rKgnRHMg==}
+    peerDependencies:
+      svelte: ^3.54.0
 
   '@chromatic-com/storybook@4.0.1':
     resolution: {integrity: sha512-GQXe5lyZl3yLewLJQyFXEpOp2h+mfN2bPrzYaOFNCJjO4Js9deKbRHTOSaiP2FRwZqDLdQwy2+SEGeXPZ94yYw==}
@@ -374,6 +389,14 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.29':
     resolution: {integrity: sha512-uw6guiW/gcAGPDhLmd77/6lW8QLeiV5RUTsAX46Db6oLhGaVj4lhnPwb184s1bkc8kdVg/+h988dro8GRDpmYQ==}
+
+  '@kurkle/color@0.3.4':
+    resolution: {integrity: sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w==}
+
+  '@lucide/svelte@0.526.0':
+    resolution: {integrity: sha512-D0pRA/tTLajPFok7gr5+bMeGeEsszAJOSx02i/jPuiGiakj1DHj3D+OEjTyYLeSHAYOmRu5AdWZB/Ft01tdAUQ==}
+    peerDependencies:
+      svelte: ^5
 
   '@mdx-js/react@3.1.0':
     resolution: {integrity: sha512-QjHtSaoameoalGnKDT3FoIl4+9RwyTmo9ZJGBdLOks/YOiWHoRDI3PUwEzOE7kEmGcV3AFcp9K6dYu9rEuKLAQ==}
@@ -952,6 +975,10 @@ packages:
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
+
+  chart.js@4.5.0:
+    resolution: {integrity: sha512-aYeC/jDgSEx8SHWZvANYMioYMZ2KX02W6f6uVfyteuCGcadDLcYVHdfdygsTQkQ4TKn5lghoojAsPj5pu0SnvQ==}
+    engines: {pnpm: '>=8'}
 
   check-error@2.1.1:
     resolution: {integrity: sha512-OAlb+T7V4Op9OwdkjmguYRqncdlx5JiofwOAUkmTF+jNdHwzTaTs4sRAGpzLF3oOz5xAyDGrPgeIDFQmDOTiJw==}
@@ -2073,6 +2100,10 @@ snapshots:
 
   '@babel/runtime@7.28.2': {}
 
+  '@bonosoft/sveltekit-progress@0.0.1(svelte@5.36.17)':
+    dependencies:
+      svelte: 5.36.17
+
   '@chromatic-com/storybook@4.0.1(storybook@9.0.18(@testing-library/dom@10.4.0)(prettier@3.6.2))':
     dependencies:
       '@neoconfetti/react': 1.0.0
@@ -2241,6 +2272,12 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.4
+
+  '@kurkle/color@0.3.4': {}
+
+  '@lucide/svelte@0.526.0(svelte@5.36.17)':
+    dependencies:
+      svelte: 5.36.17
 
   '@mdx-js/react@3.1.0(@types/react@19.1.8)(react@19.1.0)':
     dependencies:
@@ -2841,6 +2878,10 @@ snapshots:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
+
+  chart.js@4.5.0:
+    dependencies:
+      '@kurkle/color': 0.3.4
 
   check-error@2.1.1: {}
 

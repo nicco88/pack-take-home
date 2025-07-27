@@ -2,7 +2,7 @@
 	import '../../app.css';
 	import type { MainNavLinkI } from '../models/main-nav-link.models';
 
-	let { children, link, active, disabled = false }: MainNavLinkI = $props();
+	let { children, link, active, disabled = false, ariaLabel }: MainNavLinkI = $props();
 </script>
 
 <a
@@ -15,6 +15,7 @@
 	}}
   aria-disabled={disabled || null}
   aria-current={active ? 'page' : null}
+	aria-label={ariaLabel || null}
   role={disabled ? 'link' : null}
 >
 	{@render children()}

@@ -2,3 +2,8 @@ export { default as Card } from './components/Card.svelte'
 export { default as MainNavLink } from './components/MainNavLink.svelte'
 export { default as SubNavLink } from './components/SubNavLink.svelte'
 export { default as Button } from './components/Button.svelte';
+export { default as ContentLink } from './components/ContentLink.svelte';
+export { default as PieChart } from './components/PieChart.svelte';
+export { default as LineChart } from './components/LineChart.svelte';
+export { default as Chip } from './components/Chip.svelte';
+export { default as Table } from './components/Table.svelte';
