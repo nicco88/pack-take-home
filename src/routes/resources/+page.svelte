@@ -226,6 +226,7 @@
 			</dl>
 		</Card>
 
+		<!-- TODO: Resize and overflow problem - TO BE FIXED -->
 		<Card classList="lg:col-span-10 lg:row-start-11 lg:row-end-[-1] flex flex-col gap-y-5">
 			<h3 class="ml-10 text-xs text-gray-400">Resources by category</h3>
 
@@ -296,6 +297,7 @@
 			<Button>Download</Button>
 		</div>
 
+		<!-- TODO: Overflow problem - TO BE FIXED -->
 		<Table {columns} rows={data?.tableContent || []} />
 	</section>
 </div>

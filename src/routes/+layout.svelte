@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { MainNavLink } from '../lib/index';
 	import { page } from '$app/state';
-	import { AlignJustify } from '@lucide/svelte';
+	import { AlignJustify, MessagesSquare } from '@lucide/svelte';
 	import '../app.css';
 
 	const { children } = $props();
@@ -51,11 +51,11 @@
 		class:hidden={!expanded}
 		class="mb-5 flex flex-col gap-y-3 mx-auto lg:mx-0 justify-between gap-x-3 text-center lg:mb-0 lg:flex! lg:flex-row lg:justify-items-normal"
 	>
-		<button type="button" aria-label="change language">
+		<button class="cursor-pointer" type="button" aria-label="change language">
 			<img class="w-[30px]" alt="english" src="/american-flag.webp"	/>
 		</button>
 
-		<button type="button" aria-label="profile" >
+		<button class="cursor-pointer" type="button" aria-label="profile" >
 			<img src="https://i.pravatar.cc/150?img=49" alt="" class="rounded-full w-[30px] h-[30px]">
 		</button>
 	</div>
@@ -84,12 +84,25 @@
 	{@render children()}
 </main>
 
-<!-- <button>Chat</button> -->
+<button id="chat-button" class="fixed grid place-content-center bottom-5 right-5 cursor-pointer bg-orange-400 w-12 h-12 rounded-full text-white hover:bg-orange-500">
+	<MessagesSquare size={24} />
+</button>
 
 <style>
 	:global(body) {
 		color: rgba(0, 0, 0, 0.7);
 		background-color: rgba(0, 0, 0, 0.1);
 		font-family: Verdana, Geneva, Tahoma, sans-serif;
+	}
+
+	#chat-button::after {
+		content: "";
+		position: absolute;
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background-color: var(--color-emerald-500);
+		bottom: 2px;
+		right: 2px;
 	}
 </style>
