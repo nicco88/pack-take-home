@@ -4,5 +4,5 @@
 </script>
 
 <Card classList="w-full md:w-[700px] lg:w-[900px]">
-  <h1>Home</h1>
+  <h1>Users</h1>
 </Card>

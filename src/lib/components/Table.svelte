@@ -26,7 +26,7 @@
 
 <div class="overflow-x-auto">
 	<table class="min-w-full divide-y divide-gray-200">
-		<thead class="">
+		<thead>
 			<tr>
 				{#each columns as column, index (column.title)}
 					<th
@@ -51,7 +51,7 @@
 			{#each rows as row (row.id || JSON.stringify(row))}
 				<tr class="transition-colors duration-150 hover:bg-gray-50">
 					{#each columns as column (column.title)}
-						<td class="px-6 py-4 text-sm text-gray-800">
+						<td class="px-3 py-1 text-xs text-gray-800 whitespace-nowrap">
 							{#if column.type === 'profile'}
 								<div class="flex items-center space-x-3">
 									{#if getPropertyValue(row, column.imageKey)}

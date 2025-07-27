@@ -11,7 +11,7 @@
 	const navigation = [
 		{ link: '/dashboard', label: 'Dashboard' },
 		{ link: '/users', label: 'Users' },
-		{ link: '/feedback', label: 'Feedback' },
+		{ link: '/feedback', label: 'Feedbacks' },
 		{ link: '/programs', label: 'Programs' },
 		{ link: '/resources', label: 'Resources' },
 		{ link: '/counterparties', label: 'Counterparties' },

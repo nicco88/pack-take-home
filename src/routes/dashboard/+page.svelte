@@ -1,8 +1,9 @@
+
 <script>
 	import Card from "$lib/components/Card.svelte";
 
 </script>
 
 <Card classList="w-full md:w-[700px] lg:w-[900px]">
-  <h1>Home</h1>
+  <h1>Dashboard</h1>
 </Card>
