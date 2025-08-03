@@ -53,10 +53,10 @@
 					{#each columns as column (column.title)}
 						<td class="px-3 py-1 text-xs text-gray-800 whitespace-nowrap">
 							{#if column.type === 'profile'}
-								<div class="flex items-center space-x-3">
+								<div class="flex items-center lg:space-x-3 flex-col lg:flex-row">
 									{#if getPropertyValue(row, column.imageKey)}
 										<img
-											class="h-9 w-9 rounded-full border border-gray-200 object-cover"
+											class="h-6 w-6 lg:h-9 lg:w-9 rounded-full border border-gray-200 object-cover"
 											src={getPropertyValue(row, column.imageKey)}
 											alt={getPropertyValue(row, column.nameKey)}
 										/>
@@ -74,7 +74,7 @@
 										</div>
 
 										{#if column.secondaryTextKey}
-											<div class="text-xs text-gray-500">
+											<div class="text-xs text-gray-500 text-center lg:text-left">
 												{getPropertyValue(row, column.secondaryTextKey)}
 											</div>
 										{/if}

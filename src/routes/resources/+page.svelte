@@ -53,7 +53,7 @@
 <h2 class="sr-only text-xl font-bold">Analytics</h2>
 
 <div class="grid gap-y-5">
-	<section class="grid gap-3 lg:h-[400px] lg:grid-cols-24 lg:grid-rows-20">
+	<section class="grid min-w-0 gap-3 lg:h-[400px] lg:grid-cols-24 lg:grid-rows-20">
 		<Card classList="lg:col-span-5 lg:row-span-10 grid gap-y-3 text-center place-content-center">
 			<div class="fit-content mx-auto">
 				<Progress
@@ -190,8 +190,7 @@
 			</dl>
 		</Card>
 
-		<!-- TODO: Resize and overflow problem - TO BE FIXED -->
-		<Card classList="lg:col-span-10 lg:row-start-11 lg:row-end-[-1] flex flex-col gap-y-5">
+		<Card classList="lg:col-span-10 lg:row-start-11 lg:row-end-[-1] flex flex-col gap-y-5 overflow-x-auto min-w-0">
 			<h3 class="ml-10 text-xs text-gray-400">Resources by category</h3>
 
 			<PieChart
@@ -201,7 +200,7 @@
 			/>
 		</Card>
 
-		<Card classList="lg:col-start-11 lg:col-end-[-1] lg:row-start-7 lg:row-end-[-1]">
+		<Card classList="lg:col-start-11 lg:col-end-[-1] lg:row-start-7 lg:row-end-[-1] overflow-x-auto min-w-0">
 			<h3 class="mb-3 text-center text-xs text-gray-400">Uploaded content vs Usage over time</h3>
 
 			<LineChart chartLabels={[]} chartData={[0, 1100, 20, 500, 700]} dataLabel="First" />
@@ -232,15 +231,15 @@
 
 	<hr class="border-gray-300" />
 
-	<section>
+	<section class="min-w-0">
 		<h2 class="text-lg font-bold mb-5">User Content Access</h2>
 
-		<div class="grid md:flex gap-3 mb-5 md:items-center">
-			<form class="grid md:flex gap-3">
+		<div class="grid lg:flex gap-3 mb-5 md:items-center">
+			<form class="grid lg:flex gap-3">
 				<div>
 					<label for="provider" class="sr-only">Provider</label>
 	
-					<select placeholder="Provider" class="w-full md:w-[200px] rounded border border-gray-300 h-[40px] px-3" name="provider" id="provider">
+					<select placeholder="Provider" class="w-full lg:w-[200px] rounded border border-gray-300 h-[40px] px-3" name="provider" id="provider">
 						<option value="">Provider</option>
 					</select>
 				</div>
@@ -248,20 +247,19 @@
 				<div>
 					<label for="from" class="sr-only">From</label>
 	
-					<input placeholder="From" type="text" id="from" class="w-full md:w-auto rounded border border-gray-300 h-[40px] px-3" />
+					<input placeholder="From" type="text" id="from" class="w-full lg:w-auto rounded border border-gray-300 h-[40px] px-3" />
 				</div>
 	
 				<div>
 					<label for="to" class="sr-only">To</label>
 	
-					<input placeholder="To" type="text" id="to" class="w-full md:w-auto rounded border border-gray-300 h-[40px] px-3" />
+					<input placeholder="To" type="text" id="to" class="w-full lg:w-auto rounded border border-gray-300 h-[40px] px-3" />
 				</div>
 			</form>
 
 			<Button>Download</Button>
 		</div>
 
-		<!-- TODO: Overflow problem - TO BE FIXED -->
 		<Table {columns} rows={data?.tableContent || []} />
 	</section>
 </div>
