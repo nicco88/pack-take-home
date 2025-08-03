@@ -26,10 +26,10 @@
 	class:justify-between={!expanded}
 	class:justify-center={expanded}
 	class:items-center={!expanded}
-	class="fixed z-[9999] flex w-full flex-col items-center bg-gray-50 px-3 shadow-sm shadow-gray-400 lg:static lg:h-12 lg:flex-row lg:justify-between"
+	class="fixed z-[9999] flex w-full flex-col items-center bg-gray-50 px-3 shadow-sm shadow-gray-400 lg:h-12 lg:flex-row lg:justify-between"
 >
 	<nav
-		class="flex flex-col items-center justify-between sm:mb-0 lg:flex-row lg:w-full"
+		class="flex flex-col items-center justify-between sm:mb-0 lg:flex-row lg:w-full lg:h-full"
 		class:mb-5={expanded}
 	>
 		<a class="sm:mb-0" class:mb-5={expanded} href="/" aria-label="home">
@@ -80,7 +80,7 @@
 	</button>
 </header>
 
-<main class="flex justify-center px-5 pt-18 pb-5 lg:pt-5">
+<main class="flex justify-center px-5 pt-18 pb-5">
 	{@render children()}
 </main>
 
