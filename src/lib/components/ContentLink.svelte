@@ -6,7 +6,7 @@
 </script>
 
 <div class="flex justify-between">
-	<a href={link} class="font-bold underline hover:text-orange-500 text-base">
+	<a href={link} class="font-bold underline hover:text-orange-500 text-base hover:scale-110 transition-all">
 		{@render children()}
 	</a>
 

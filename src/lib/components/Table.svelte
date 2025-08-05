@@ -49,7 +49,7 @@
 
 		<tbody class="divide-y divide-gray-200">
 			{#each rows as row (row.id || JSON.stringify(row))}
-				<tr class="transition-colors duration-150 hover:bg-gray-50">
+				<tr class="transition-colors duration-150 hover:bg-orange-100">
 					{#each columns as column (column.title)}
 						<td class="px-3 py-1 text-xs text-gray-800 whitespace-nowrap">
 							{#if column.type === 'profile'}

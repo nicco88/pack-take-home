@@ -5,7 +5,7 @@
 	import Progress from '@bonosoft/sveltekit-progress';
 	import { Blocks, ChartNoAxesColumn, Folders, TrendingDown, TrendingUp } from '@lucide/svelte';
 	import { onMount } from 'svelte';
-	import { cubicOut } from 'svelte/easing';
+	import { cubicInOut, cubicOut } from 'svelte/easing';
 	import { Tween } from 'svelte/motion';
 	import '../../app.css';
 
@@ -51,13 +51,16 @@
 		return data != null && !isNaN(data as number) ? `${data}%` : alt;
 	}
 
-	const progressTweenOptions = {
+	const FLY_ANIMATION_DURATION = 400;
+	const progressTweenOptions: NonNullable<ConstructorParameters<typeof Tween<number>>[1]> = {
 		duration: 2000,
-		easing: cubicOut
+		easing: cubicOut,
+		delay: FLY_ANIMATION_DURATION
 	};
-	const tweenOptions = {
+	const tweenOptions: NonNullable<ConstructorParameters<typeof Tween<number>>[1]> = {
 		duration: 4000,
-		easing: cubicOut
+		easing: cubicOut,
+		delay: FLY_ANIMATION_DURATION * 3
 	};
 	const activeUsersAccessRate = new Tween(0, progressTweenOptions);
 	const resourcesUtilized = new Tween(0, progressTweenOptions);
@@ -69,19 +72,19 @@
 		if (typeof data?.analytics?.resourcesUtilized === 'number') {
 			resourcesUtilized.set(data.analytics.resourcesUtilized);
 		}
-	
+
 		if (typeof data?.analytics?.activeUsersAccessRate === 'number') {
 			activeUsersAccessRate.set(data.analytics.activeUsersAccessRate);
 		}
-	
+
 		if (typeof data?.analytics?.resourcesUploaded?.total === 'number') {
 			resourcesUploaded.set(data.analytics.resourcesUploaded.total);
 		}
-	
+
 		if (typeof data?.analytics?.completionRate?.total === 'number') {
 			completionRate.set(data.analytics.completionRate.total);
 		}
-	
+
 		if (typeof data?.analytics?.uniqueAccesses?.partial === 'number') {
 			uniqueAccesses.set(data.analytics.uniqueAccesses.partial);
 		}
@@ -96,7 +99,11 @@
 
 <div class="grid gap-y-5">
 	<section class="grid min-w-0 gap-3 lg:h-[400px] lg:grid-cols-24 lg:grid-rows-20">
-		<Card classList="lg:col-span-5 lg:row-span-10 grid gap-y-3 text-center place-content-center">
+		<Card
+			animate={true}
+			flyParams={{ x: -150, duration: FLY_ANIMATION_DURATION, delay: 50, easing: cubicInOut }}
+			classList="lg:col-span-5 lg:row-span-10 grid gap-y-3 text-center place-content-center"
+		>
 			<div class="fit-content mx-auto">
 				<Progress
 					progress={Math.round(activeUsersAccessRate.current || 0).toString()}
@@ -109,6 +116,13 @@
 		</Card>
 
 		<Card
+			animate={true}
+			flyParams={{
+				y: -50,
+				duration: FLY_ANIMATION_DURATION,
+				delay: FLY_ANIMATION_DURATION,
+				easing: cubicInOut
+			}}
 			classList="lg:col-start-6 lg:col-span-5 lg:row-span-10 grid gap-y-3 text-center place-content-center"
 		>
 			<div class="fit-content mx-auto">
@@ -123,6 +137,8 @@
 		</Card>
 
 		<Card
+			animate={true}
+			flyParams={{ x: 150, duration: 500, delay: 1000, easing: cubicInOut }}
 			classList="lg:col-start-11 lg:col-end-[-1] lg:row-span-6 md:flex md:items-center md:justify-center"
 		>
 			<dl class="grid w-full gap-3 md:grid-cols-[1fr_2px_1fr_2px_1fr]">
@@ -233,6 +249,13 @@
 		</Card>
 
 		<Card
+			animate={true}
+			flyParams={{
+				x: -150,
+				duration: FLY_ANIMATION_DURATION,
+				delay: FLY_ANIMATION_DURATION * 3,
+				easing: cubicInOut
+			}}
 			classList="lg:col-span-10 lg:row-start-11 lg:row-end-[-1] flex flex-col gap-y-5 overflow-x-auto min-w-0"
 		>
 			<h3 class="ml-10 text-xs text-gray-400">Resources by category</h3>
@@ -241,6 +264,13 @@
 		</Card>
 
 		<Card
+			animate={true}
+			flyParams={{
+				x: 150,
+				duration: FLY_ANIMATION_DURATION,
+				delay: FLY_ANIMATION_DURATION * 4,
+				easing: cubicInOut,
+			}}
 			classList="lg:col-start-11 lg:col-end-[-1] lg:row-start-7 lg:row-end-[-1] overflow-x-auto min-w-0"
 		>
 			<h3 class="mb-3 text-center text-xs text-gray-400">Uploaded content vs Usage over time</h3>
@@ -250,7 +280,16 @@
 	</section>
 
 	<section class="grid gap-3 md:grid-cols-2 lg:gap-x-5">
-		<Card padding="md">
+		<Card padding="md"
+		animate={true}
+		flyParams={{
+			x: -150,
+			y: 50,
+			duration: FLY_ANIMATION_DURATION,
+			delay: FLY_ANIMATION_DURATION * 5,
+			easing: cubicInOut
+		}}
+		>
 			<h3 class="mb-3 text-xs text-gray-400">Most Used Resources</h3>
 
 			{#each data?.analytics?.mostUsedResources || [] as resource}
@@ -260,7 +299,16 @@
 			{/each}
 		</Card>
 
-		<Card padding="md">
+		<Card padding="md"
+		animate={true}
+		flyParams={{
+			x: 150,
+			y: 50,
+			duration: FLY_ANIMATION_DURATION,
+			delay: FLY_ANIMATION_DURATION * 5,
+			easing: cubicInOut
+		}}
+		>
 			<h3 class="mb-3 text-xs text-gray-400">Most Used Resources</h3>
 
 			{#each data?.analytics?.mostUsedResources2 || [] as resource}
