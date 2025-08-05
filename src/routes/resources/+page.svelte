@@ -1,11 +1,13 @@
 <script lang="ts">
-	import { Card, PieChart, LineChart, ContentLink, Table, Button } from '$lib/index';
-	import Progress from '@bonosoft/sveltekit-progress';
-	import { TrendingDown, TrendingUp, Folders, ChartNoAxesColumn, Blocks } from '@lucide/svelte';
-
-	import '../../app.css';
+	import { Button, Card, ContentLink, LineChart, PieChart, Table } from '$lib/index';
 	import type { ContentLinkTrendT } from '$lib/models/content-link.models';
 	import type { ColumnT, RowT } from '$lib/models/table.models';
+	import Progress from '@bonosoft/sveltekit-progress';
+	import { Blocks, ChartNoAxesColumn, Folders, TrendingDown, TrendingUp } from '@lucide/svelte';
+	import { onMount } from 'svelte';
+	import { cubicOut } from 'svelte/easing';
+	import { Tween } from 'svelte/motion';
+	import '../../app.css';
 
 	const { data } = $props();
 
@@ -39,15 +41,55 @@
 	];
 
 	function checkNull(data: string | number | null | undefined, alt: string = '-'): string | number {
-		return data != null ? data : alt;
+		return data != null && !isNaN(data as number) ? data : alt;
 	}
 
 	function checkNullWithPercent(
 		data: string | number | null | undefined,
 		alt: string = '-'
 	): string | number {
-		return data != null ? `${data}%` : alt;
+		return data != null && !isNaN(data as number) ? `${data}%` : alt;
 	}
+
+	const progressTweenOptions = {
+		duration: 2000,
+		easing: cubicOut
+	};
+	const tweenOptions = {
+		duration: 4000,
+		easing: cubicOut
+	};
+	const activeUsersAccessRate = new Tween(0, progressTweenOptions);
+	const resourcesUtilized = new Tween(0, progressTweenOptions);
+	const resourcesUploaded = new Tween(0, tweenOptions);
+	const completionRate = new Tween(0, tweenOptions);
+	const uniqueAccesses = new Tween(0, tweenOptions);
+
+	function initializeTween() {
+		if (typeof data?.analytics?.resourcesUtilized === 'number') {
+			resourcesUtilized.set(data.analytics.resourcesUtilized);
+		}
+	
+		if (typeof data?.analytics?.activeUsersAccessRate === 'number') {
+			activeUsersAccessRate.set(data.analytics.activeUsersAccessRate);
+		}
+	
+		if (typeof data?.analytics?.resourcesUploaded?.total === 'number') {
+			resourcesUploaded.set(data.analytics.resourcesUploaded.total);
+		}
+	
+		if (typeof data?.analytics?.completionRate?.total === 'number') {
+			completionRate.set(data.analytics.completionRate.total);
+		}
+	
+		if (typeof data?.analytics?.uniqueAccesses?.partial === 'number') {
+			uniqueAccesses.set(data.analytics.uniqueAccesses.partial);
+		}
+	}
+
+	onMount(() => {
+		initializeTween();
+	});
 </script>
 
 <h2 class="sr-only text-xl font-bold">Analytics</h2>
@@ -57,7 +99,7 @@
 		<Card classList="lg:col-span-5 lg:row-span-10 grid gap-y-3 text-center place-content-center">
 			<div class="fit-content mx-auto">
 				<Progress
-					progress={data?.analytics?.activeUsersAccessRate || 0}
+					progress={Math.round(activeUsersAccessRate.current || 0).toString()}
 					color="var(--color-emerald-500)"
 					textColor="var(--color-emerald-500)"
 				/>
@@ -71,7 +113,7 @@
 		>
 			<div class="fit-content mx-auto">
 				<Progress
-					progress={data?.analytics?.resourcesUtilized || 0}
+					progress={Math.round(resourcesUtilized.current || 0).toString()}
 					color="var(--color-orange-400)"
 					textColor="var(--color-orange-400)"
 				/>
@@ -92,7 +134,7 @@
 					</dt>
 
 					<dd class="text-xl font-bold">
-						{checkNull(data?.analytics?.resourcesUploaded?.total)}
+						{checkNull(Math.round(resourcesUploaded.current))}
 
 						{#if data?.analytics?.resourcesUploaded?.trend}
 							{@const trend = data?.analytics?.resourcesUploaded?.trend}
@@ -127,7 +169,7 @@
 					</dt>
 
 					<dd class="text-xl font-bold">
-						{checkNullWithPercent(data?.analytics?.completionRate?.total)}
+						{checkNullWithPercent(Math.round(completionRate.current))}
 
 						{#if data?.analytics?.completionRate?.trend}
 							{@const trend = data?.analytics?.completionRate?.trend}
@@ -162,7 +204,7 @@
 					</dt>
 
 					<dd class="text-xl font-bold">
-						{checkNull(data?.analytics?.uniqueAccesses?.partial)}/{checkNull(
+						{checkNull(Math.round(uniqueAccesses.current))}/{checkNull(
 							data?.analytics?.uniqueAccesses?.total
 						)}
 
@@ -190,17 +232,17 @@
 			</dl>
 		</Card>
 
-		<Card classList="lg:col-span-10 lg:row-start-11 lg:row-end-[-1] flex flex-col gap-y-5 overflow-x-auto min-w-0">
+		<Card
+			classList="lg:col-span-10 lg:row-start-11 lg:row-end-[-1] flex flex-col gap-y-5 overflow-x-auto min-w-0"
+		>
 			<h3 class="ml-10 text-xs text-gray-400">Resources by category</h3>
 
-			<PieChart
-				chartLabels={pieData.labels}
-				chartData={pieData.data}
-				dataLabel="Pie chart"
-			/>
+			<PieChart chartLabels={pieData.labels} chartData={pieData.data} dataLabel="Pie chart" />
 		</Card>
 
-		<Card classList="lg:col-start-11 lg:col-end-[-1] lg:row-start-7 lg:row-end-[-1] overflow-x-auto min-w-0">
+		<Card
+			classList="lg:col-start-11 lg:col-end-[-1] lg:row-start-7 lg:row-end-[-1] overflow-x-auto min-w-0"
+		>
 			<h3 class="mb-3 text-center text-xs text-gray-400">Uploaded content vs Usage over time</h3>
 
 			<LineChart chartLabels={[]} chartData={[0, 1100, 20, 500, 700]} dataLabel="First" />
@@ -232,28 +274,43 @@
 	<hr class="border-gray-300" />
 
 	<section class="min-w-0">
-		<h2 class="text-lg font-bold mb-5">User Content Access</h2>
+		<h2 class="mb-5 text-lg font-bold">User Content Access</h2>
 
-		<div class="grid lg:flex gap-3 mb-5 md:items-center">
-			<form class="grid lg:flex gap-3">
+		<div class="mb-5 grid gap-3 md:items-center lg:flex">
+			<form class="grid gap-3 lg:flex">
 				<div>
 					<label for="provider" class="sr-only">Provider</label>
-	
-					<select placeholder="Provider" class="w-full lg:w-[200px] rounded border border-gray-300 h-[40px] px-3" name="provider" id="provider">
+
+					<select
+						placeholder="Provider"
+						class="h-[40px] w-full rounded border border-gray-300 px-3 lg:w-[200px]"
+						name="provider"
+						id="provider"
+					>
 						<option value="">Provider</option>
 					</select>
 				</div>
-	
+
 				<div>
 					<label for="from" class="sr-only">From</label>
-	
-					<input placeholder="From" type="text" id="from" class="w-full lg:w-auto rounded border border-gray-300 h-[40px] px-3" />
+
+					<input
+						placeholder="From"
+						type="text"
+						id="from"
+						class="h-[40px] w-full rounded border border-gray-300 px-3 lg:w-auto"
+					/>
 				</div>
-	
+
 				<div>
 					<label for="to" class="sr-only">To</label>
-	
-					<input placeholder="To" type="text" id="to" class="w-full lg:w-auto rounded border border-gray-300 h-[40px] px-3" />
+
+					<input
+						placeholder="To"
+						type="text"
+						id="to"
+						class="h-[40px] w-full rounded border border-gray-300 px-3 lg:w-auto"
+					/>
 				</div>
 			</form>
 
